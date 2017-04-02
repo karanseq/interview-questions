@@ -142,7 +142,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LinkedListProblems.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="NumberProblems.cpp" />
+    <ClCompile Include="StringProblems.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
