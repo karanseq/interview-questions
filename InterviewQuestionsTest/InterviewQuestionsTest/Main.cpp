@@ -3,8 +3,10 @@
 #include <stdint.h>
 
 // windows only libraries
-//#include <conio.h>
-//#include <crtdbg.h>
+#if defined(_WIN64) || defined(_WIN32)
+#include <conio.h>
+#include <crtdbg.h>
+#endif
 
 // Linked list problems
 void TestReverseLinkedList();
@@ -23,13 +25,13 @@ void TestSplitSentenceIntoWords();
 
 // Number problems
 void TestMoveZerosToEnd();
+void TestAtoI();
+void TestItoA();
 
 /*
     TODO:
     - Delete all the nodes in a linked list given a pointer to a function that returns true if the link data should be removed.
     - Hard: You are given a linked list where the link nodes contain not only a next pointer but an additional pointer to another random node in the list. Write a function that creates a deep copy of this list.
-    - Find the maximum depth of a binary tree.
-    - Implement the CRT itoa(): const char * itoa( int i_int );
 */
 
 int main()
@@ -37,41 +39,48 @@ int main()
     printf("InterviewQuestionsTest\n");
 
     // TestReverseLinkedList();
-    // printf("\n\n");
+    // printf("\n");
 
     // TestIsCircularLinkedList();
-    // printf("\n\n");
+    // printf("\n");
 
     // TestReverseWords();
-    // printf("\n\n");
+    // printf("\n");
 
     // TestStringCompare();
-    // printf("\n\n");
+    // printf("\n");
 
     // TestReverseString();
-    // printf("\n\n");
+    // printf("\n");
 
     // TestRemoveCharFromString();
-    // printf("\n\n");
+    // printf("\n");
 
     // TestRemoveAdjacentDuplicatesFromString();
-    // printf("\n\n");
+    // printf("\n");
 
     // TestSplitSentenceIntoWords();
-    // printf("\n\n");
+    // printf("\n");
 
     // TestMoveZerosToEnd();
-    // printf("\n\n");
+    // printf("\n");
 
     TestGetMaxDepthOfBinaryTree();
-    printf("\n\n");
+    printf("\n");
+
+    //TestAtoI();
+    //printf("\n");
+
+    //TestItoA();
+    //printf("\n\n");
 
 //  Windows only code
-//     _getch();
-
-// #if defined(_DEBUG)
-//     _CrtDumpMemoryLeaks();
-// #endif // _DEBUG
+#if defined(_WIN64) || defined(_WIN32)
+     _getch();
+#if defined(_DEBUG)
+    _CrtDumpMemoryLeaks();
+#endif // _DEBUG
+#endif // _WIN64 || _WIN32
 
     return 0;
 }

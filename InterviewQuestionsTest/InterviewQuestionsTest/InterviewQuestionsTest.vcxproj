@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BinarySearchTreeProblems.cpp" />
     <ClCompile Include="LinkedListProblems.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="NumberProblems.cpp" />

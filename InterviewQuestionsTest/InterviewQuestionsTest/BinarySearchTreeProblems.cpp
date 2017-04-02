@@ -93,13 +93,19 @@ void VisitPostOrder(Node* i_root)
 	printf("%d ", i_root->val);
 }
 
-int GetMaxDepthOfBinaryTree(Node* i_root)
+/*
+Find the maximum depth of a binary tree.
+*/
+void GetMaxDepthOfBinaryTree(Node* i_node, const uint16_t i_depth, uint16_t& o_max_depth)
 {
-	assert(i_root);
+    if (!i_node)
+    {
+        o_max_depth = i_depth > o_max_depth ? i_depth : o_max_depth;
+        return;
+    }
 
-	int result = 0;
-
-	return result;
+    GetMaxDepthOfBinaryTree(i_node->left, i_depth + 1, o_max_depth);
+    GetMaxDepthOfBinaryTree(i_node->right, i_depth + 1, o_max_depth);
 }
 
 void TestGetMaxDepthOfBinaryTree()
@@ -127,6 +133,11 @@ void TestGetMaxDepthOfBinaryTree()
     printf("Post-order:");
     VisitPostOrder(root);
     printf("\n");
+
+    uint16_t max_depth = 0;
+    GetMaxDepthOfBinaryTree(root, max_depth, max_depth);
+
+    printf("Maximum depth of tree shown above:%d\n", max_depth);
 
     Delete(root);
     root = nullptr;
