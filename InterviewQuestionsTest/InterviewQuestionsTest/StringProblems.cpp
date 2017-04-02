@@ -1,3 +1,4 @@
+// library includes
 #include <assert.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -309,7 +310,7 @@ char** SplitSentenceIntoWords(const char* i_sentence, uint16_t& o_num_words)
         ++word_index;
     }
 
-    o_num_words = word_index;
+    o_num_words = num_words;
     return result;
 }
 
@@ -324,7 +325,7 @@ void TestSplitSentenceIntoWords()
 
     char** words = SplitSentenceIntoWords(sentence, num_words);
 
-    printf("Words:\n");
+    printf("%d-words:\n", num_words);
     uint16_t i = 0;
     while (i < num_words)
     {

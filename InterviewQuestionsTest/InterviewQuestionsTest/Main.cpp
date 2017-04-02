@@ -1,12 +1,17 @@
 // library includes
 #include <stdio.h>
-#include <conio.h>
 #include <stdint.h>
-#include <crtdbg.h>
+
+// windows only libraries
+//#include <conio.h>
+//#include <crtdbg.h>
 
 // Linked list problems
 void TestReverseLinkedList();
 void TestIsCircularLinkedList();
+
+// Binary search tree problems
+void TestGetMaxDepthOfBinaryTree();
 
 // String problems
 void TestReverseWords();
@@ -31,38 +36,42 @@ int main()
 {
     printf("InterviewQuestionsTest\n");
 
-    TestReverseLinkedList();
+    // TestReverseLinkedList();
+    // printf("\n\n");
+
+    // TestIsCircularLinkedList();
+    // printf("\n\n");
+
+    // TestReverseWords();
+    // printf("\n\n");
+
+    // TestStringCompare();
+    // printf("\n\n");
+
+    // TestReverseString();
+    // printf("\n\n");
+
+    // TestRemoveCharFromString();
+    // printf("\n\n");
+
+    // TestRemoveAdjacentDuplicatesFromString();
+    // printf("\n\n");
+
+    // TestSplitSentenceIntoWords();
+    // printf("\n\n");
+
+    // TestMoveZerosToEnd();
+    // printf("\n\n");
+
+    TestGetMaxDepthOfBinaryTree();
     printf("\n\n");
 
-    TestIsCircularLinkedList();
-    printf("\n\n");
+//  Windows only code
+//     _getch();
 
-    TestReverseWords();
-    printf("\n\n");
-
-    TestStringCompare();
-    printf("\n\n");
-
-    TestReverseString();
-    printf("\n\n");
-
-    TestRemoveCharFromString();
-    printf("\n\n");
-
-    TestRemoveAdjacentDuplicatesFromString();
-    printf("\n\n");
-
-    TestSplitSentenceIntoWords();
-    printf("\n\n");
-
-    TestMoveZerosToEnd();
-    printf("\n\n");
-
-    _getch();
-
-#if defined(_DEBUG)
-    _CrtDumpMemoryLeaks();
-#endif // _DEBUG
+// #if defined(_DEBUG)
+//     _CrtDumpMemoryLeaks();
+// #endif // _DEBUG
 
     return 0;
 }
