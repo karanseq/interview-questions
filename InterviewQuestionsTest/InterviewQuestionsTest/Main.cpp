@@ -27,6 +27,7 @@ void TestSplitSentenceIntoWords();
 void TestMoveZerosToEnd();
 void TestAtoI();
 void TestItoA();
+void TestAtoF();
 
 /*
     TODO:
@@ -65,14 +66,17 @@ int main()
     // TestMoveZerosToEnd();
     // printf("\n");
 
-    TestGetMaxDepthOfBinaryTree();
-    printf("\n");
+    //TestGetMaxDepthOfBinaryTree();
+    //printf("\n");
 
     //TestAtoI();
     //printf("\n");
 
     //TestItoA();
-    //printf("\n\n");
+    //printf("\n");
+
+    TestAtoF();
+    printf("\n");
 
 //  Windows only code
 #if defined(_WIN64) || defined(_WIN32)

@@ -1,5 +1,6 @@
 // library includes
 #include <assert.h>
+#include <math.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -202,6 +203,126 @@ void TestItoA()
     char* str2 = ItoA(num2);
     printf("Number:%d  String:%s\n", num2, str2);
     free(str2);
+
+    printf("-------------------- %s ended --------------------\n", __FUNCTION__);
+}
+
+//double AtoF(const char* i_str)
+//{
+//    assert(i_str);
+//
+//    double result = 0, fraction = 0;
+//    bool found_number = false, is_negative = false;
+//    uint8_t i = 0;
+//
+//    while (*(i_str + i) != '\0')
+//    {
+//        if (*(i_str + i) > 47 && *(i_str + i) < 58)
+//        {
+//            if (!found_number)
+//            {
+//                is_negative = (i > 0 && *(i_str + i - 1) == '-');
+//            }
+//            found_number = true;
+//
+//            result = result * 10 + (*(i_str + i) - 48);
+//            fraction *= 10;
+//        }
+//        else if (*(i_str + i) == '.')
+//        {
+//            fraction = 1;
+//        }
+//        else if (found_number)
+//        {
+//            break;
+//        }
+//
+//        ++i;
+//    }
+//
+//    result = result / (fraction > 0 ? fraction : 1);
+//    result *= (is_negative ? -1 : 1);
+//
+//    return result;
+//}
+
+double AtoF(const char* i_str)
+{
+    assert(i_str);
+
+    double result = 0, fraction = 0, exponent = 0;
+    bool found_digit = false, found_exponent = false, is_result_negative = false, is_exponent_negative = false;
+
+    uint8_t i = 0;
+    while (*(i_str + i) != '\0')
+    {
+        if (*(i_str + i) > 47 && *(i_str + i) < 58)
+        {
+            if (!found_exponent)
+            {
+                if (!found_digit)
+                {
+                    is_result_negative = i > 0 && *(i_str + i - 1) == '-';
+                }
+                found_digit = true;
+
+                result = result * 10 + *(i_str + i) - 48;
+                fraction *= 10;
+            }
+            else
+            {
+                exponent = exponent * 10 + *(i_str + i) - 48;
+            }
+        }
+        else if (*(i_str + i) == '.' && fraction == 0)
+        {
+            fraction = 1;
+        }
+        else if (*(i_str + i) == 'e' || *(i_str + i) == 'E')
+        {
+            found_exponent = true;
+            is_exponent_negative = *(i_str + i + 1) == '-';
+            i += is_exponent_negative ? 1 : 0;
+        }
+        else if (found_digit)
+        {
+            break;
+        }
+
+        ++i;
+    } // end of while
+
+    result = result / (fraction > 0 ? fraction : 1) * (is_result_negative ? -1 : 1) * pow(10.0, (is_exponent_negative ? -1 : 1) * exponent);
+
+    return result;
+}
+
+void TestAtoF()
+{
+    printf("-------------------- %s started --------------------\n", __FUNCTION__);
+
+    const char* num1 = "1234.56789";
+    printf("String:%s  Float:%f\n", num1, float(AtoF(num1)));
+
+    const char* num2 = "asd12.4asd56";
+    printf("String:%s  Float:%f\n", num2, float(AtoF(num2)));
+
+    const char* num3 = "-asd123";
+    printf("String:%s  Float:%f\n", num3, float(AtoF(num3)));
+
+    const char* num4 = "a-1.23d6";
+    printf("String:%s  Float:%f\n", num4, float(AtoF(num4)));
+
+    const char* num5 = "-1.236";
+    printf("String:%s  Float:%f\n", num5, float(AtoF(num5)));
+
+    const char* num6 = ".236";
+    printf("String:%s  Float:%f\n", num6, float(AtoF(num6)));
+
+    const char* num7 = " -2309.12E-15";
+    double num7_double = AtoF(num7);
+    float num7_float = float(num7_double);
+    printf("String:%s  Double:%e  Float:%e\n", num7, num7_double, num7_float);
 
     printf("-------------------- %s ended --------------------\n", __FUNCTION__);
 }
