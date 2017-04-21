@@ -17,7 +17,10 @@ void TestGetMaxDepthOfBinaryTree();
 
 // String problems
 void TestReverseWords();
+void TestStringLength();
 void TestStringCompare();
+void TestStringNCompare();
+void TestStrStr();
 void TestReverseString();
 void TestRemoveCharFromString();
 void TestRemoveAdjacentDuplicatesFromString();
@@ -48,8 +51,17 @@ int main()
     // TestReverseWords();
     // printf("\n");
 
+    // TestStringLength();
+    // printf("\n");
+
     // TestStringCompare();
     // printf("\n");
+
+    // TestStringNCompare();
+    // printf("\n");
+
+    TestStrStr();
+    printf("\n");
 
     // TestReverseString();
     // printf("\n");
@@ -75,8 +87,8 @@ int main()
     //TestItoA();
     //printf("\n");
 
-    TestAtoF();
-    printf("\n");
+    // TestAtoF();
+    // printf("\n");
 
 //  Windows only code
 #if defined(_WIN64) || defined(_WIN32)

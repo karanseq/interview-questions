@@ -5,6 +5,57 @@
 #include <stdlib.h>
 
 /*
+Reverse a string in place.
+*/
+void Reverse(char* string, uint16_t start, uint16_t end)
+{
+    if (!string)
+    {
+        return;
+    }
+
+    while (start < end)
+    {
+        char swap = *(string + start);
+        *(string + start) = *(string + end);
+        *(string + end) = swap;
+        ++start;
+        --end;
+    }
+}
+
+void ReverseString(char* string)
+{
+    if (!string)
+    {
+        return;
+    }
+
+    uint16_t back = 0;
+    while (*(string + back) != '\0')
+    {
+        ++back;
+    }
+
+    --back;
+    Reverse(string, 0, back);
+}
+
+void TestReverseString()
+{
+    printf("-------------------- %s started --------------------\n", __FUNCTION__);
+
+    char string[7] = { '1', '3', '0', '0', 'c', 'c', '\0' };
+    printf("String:%s\n", string);
+
+    ReverseString(string);
+
+    printf("Reversed string:%s\n", string);
+
+    printf("-------------------- %s ended --------------------\n", __FUNCTION__);
+}
+
+/*
 Reverse the words in a string in place.
 */
 void ReverseWords(char* sentence)
@@ -14,42 +65,30 @@ void ReverseWords(char* sentence)
         return;
     }
 
-    uint16_t front = 0, back = 0;
-    while (true)
+    if (!sentence)
     {
-        if (*(sentence + back) == ' ' || *(sentence + back) == '\0')
-        {
-            uint16_t i = front, j = back;
-            while (i < j)
-            {
-                char swap = *(sentence + i);
-                *(sentence + i) = *(sentence + j - 1);
-                *(sentence + j - 1) = swap;
-                ++i;
-                --j;
-            }
-
-            if (*(sentence + back) == '\0')
-            {
-                break;
-            }
-            else
-            {
-                front = ++back;
-            }
-        }
-        else
-        {
-            ++back;
-        }
+        return;
     }
+
+    uint16_t i = 0, start = 0;
+    while ((sentence + i) && *(sentence + i) != '\0')
+    {
+        if (*(sentence + i) == ' ')
+        {
+            Reverse(sentence, start, i - 1);
+            start = i + 1;
+        }
+        ++i;
+    }
+
+    Reverse(sentence, start, i - 1);
 }
 
 void TestReverseWords()
 {
     printf("-------------------- %s started --------------------\n", __FUNCTION__);
 
-    char sentence[20] = { 't', 'w', 'i', 'n', ' ', 'c', 'y', 'l', 'i', 'n', 'd', 'e', 'r', 's', '\0' };
+    char sentence[26] = { 'm', 'a', 'y', ' ', 't', 'h', 'e', ' ', 'f', 'o', 'r', 'c', 'e', ' ', 'b', 'e', ' ', 'w', 'i', 't', 'h', ' ', 'y', 'o', 'u', '\0' };
     printf("Sentence:%s\n", sentence);
 
     ReverseWords(sentence);
@@ -60,39 +99,58 @@ void TestReverseWords()
 }
 
 /*
-Implement the CRT strcmp(): int strcmp( const char * i_lhs, const char * i_rsh).
+Implement the CRT strlen() : size_t strlen(const char* i_str)
+*/
+size_t StringLength(const char* i_str)
+{
+    assert(i_str);
+
+    size_t length = 0;
+    while (*(i_str + length) != '\0')
+    {
+        ++length;
+    }
+
+    return length;
+}
+
+void TestStringLength()
+{
+    printf("-------------------- %s started --------------------\n", __FUNCTION__);
+
+    const char* str = "1300cc";
+    printf("StringLength(%s) = %zu\n", str, StringLength(str));
+
+    str = "";
+    printf("StringLength(%s) = %zu\n", str, StringLength(str));
+
+    printf("-------------------- %s ended --------------------\n", __FUNCTION__);
+}
+
+/*
+Implement the CRT strcmp() : int strcmp( const char * i_lhs, const char * i_rsh).
 */
 int StringCompare(const char* i_lhs, const char* i_rhs)
 {
     assert(i_lhs && i_rhs);
 
-    uint16_t diff = 0;
-    while (*(i_lhs + diff) && *(i_rhs + diff))
+    size_t i = 0;
+    while (1)
     {
-        if (*(i_lhs + diff) == *(i_rhs + diff))
+        if (*(i_lhs + i) == *(i_rhs + i))
         {
-            ++diff;
+            if (*(i_lhs + i) == '\0')
+            {
+                return 0;
+            }
+            ++i;
             continue;
         }
-        break;
+
+        return *(i_lhs + i) > *(i_rhs + i) ? 1 : -1;
     }
 
-    if (!*(i_lhs + diff) && *(i_rhs + diff))
-    {
-        return -1;
-    }
-    else if (*(i_lhs + diff) && !*(i_rhs + diff))
-    {
-        return 1;
-    }
-    else if (!*(i_lhs + diff) && !*(i_rhs + diff))
-    {
-        return 0;
-    }
-    else
-    {
-        return (*(i_lhs + diff) > *(i_rhs + diff) ? 1 : -1);
-    }
+    return 0;
 }
 
 void TestStringCompare()
@@ -135,43 +193,144 @@ void TestStringCompare()
 }
 
 /*
-Reverse a string in place.
+Implement the CRT strncmp() : int strcmp(const char* i_lhs, const char* i_rhs, const size_t i_count)
 */
-void ReverseString(char* string)
+int StringNCompare(const char* i_lhs, const char* i_rhs, const size_t i_count)
 {
-    if (!string)
+    assert(i_lhs && i_rhs && i_count);
+
+    size_t i = 0;
+    while (i < i_count)
     {
-        return;
+        if (*(i_lhs + i) == *(i_rhs + i))
+        {
+            if (*(i_lhs + i) == '\0')
+            {
+                return 0;
+            }
+            ++i;
+            continue;
+        }
+
+        return *(i_lhs + i) > *(i_rhs + i) ? 1 : -1;
     }
 
-    uint16_t back = 0;
-    while (*(string + back) != '\0')
-    {
-        ++back;
-    }
-
-    --back;
-    uint16_t front = 0;
-    while (front < back)
-    {
-        char swap = *(string + front);
-        *(string + front) = *(string + back);
-        *(string + back) = swap;
-        ++front;
-        --back;
-    }
+    return 0;
 }
 
-void TestReverseString()
+void TestStringNCompare()
 {
     printf("-------------------- %s started --------------------\n", __FUNCTION__);
 
-    char string[7] = { '1', '3', '0', '0', 'c', 'c', '\0' };
-    printf("String:%s\n", string);
+    const char* s1 = "aaa";
+    const char* s2 = "aaa";
+    size_t count = 3;
+    printf("StringCompare(%s, %s, %zu) = %d\n", s1, s2, count, StringNCompare(s1, s2, count));
 
-    ReverseString(string);
+    s1 = "aaa";
+    s2 = "aac";
+    count = 2;
+    printf("StringCompare(%s, %s, %zu) = %d\n", s1, s2, count, StringNCompare(s1, s2, count));
 
-    printf("Reversed string:%s\n", string);
+    s1 = "aas";
+    s2 = "aaa";
+    count = 3;
+    printf("StringCompare(%s, %s, %zu) = %d\n", s1, s2, count, StringNCompare(s1, s2, count));
+
+    s1 = "ad";
+    s2 = "aaa";
+    count = 3;
+    printf("StringCompare(%s, %s, %zu) = %d\n", s1, s2, count, StringNCompare(s1, s2, count));
+
+    s1 = "aa";
+    s2 = "aad";
+    count = 2;
+    printf("StringCompare(%s, %s, %zu) = %d\n", s1, s2, count, StringNCompare(s1, s2, count));
+
+    s1 = "aag";
+    s2 = "aa";
+    count = 2;
+    printf("StringCompare(%s, %s, %zu) = %d\n", s1, s2, count, StringNCompare(s1, s2, count));
+
+    s1 = "aag";
+    s2 = "ad";
+    count = 1;
+    printf("StringCompare(%s, %s, %zu) = %d\n", s1, s2, count, StringNCompare(s1, s2, count));
+
+    char buf1[] = {'a', 'b', 'c'};
+    char buf2[] = {'a', 'b'};
+    count = 4;
+    printf("StringCompare(%s, %s, %zu) = %d\n", buf1, buf2, count, StringNCompare(buf1, buf2, count));
+
+    printf("-------------------- %s ended --------------------\n", __FUNCTION__);
+}
+
+/*
+Implement the CRT strstr() : char* strstr(const char* str, const char* substr)
+*/
+char* StrStr(const char* str, const char* substr)
+{
+    assert(str && substr);
+
+    char* start = nullptr;
+    size_t i = 0;
+    while (*(str + i) != '\0')
+    {
+        if (*(str + i) == *(substr))
+        {
+            start = const_cast<char*>(str + i);
+
+            ++i;
+            size_t j = 1;
+            while (1)
+            {
+                if (*(str + i) == *(substr + j))
+                {
+                    if (*(str + i) == '\0')
+                    {
+                        return start;
+                    }
+
+                    ++i;
+                    ++j;
+                    continue;
+                }
+
+                if (*(str + i) == '\0')
+                {
+                    return nullptr;
+                }
+                else if (*(substr + j) == '\0')
+                {
+                    return start;
+                }
+                else
+                {
+                    start = nullptr;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            ++i;
+        }
+    }
+
+    return nullptr;
+}
+
+void TestStrStr()
+{
+    printf("-------------------- %s started --------------------\n", __FUNCTION__);
+
+    const char* str = "1300cc";
+    const char* substr = "3c";
+    printf("StrStr(%s, %s) = %s\n", str, substr, StrStr(str, substr) ? "YES" : "NO");
+
+    str = "1300cc";
+    substr = "k";
+    printf("StrStr(%s, %s) = %s\n", str, substr, StrStr(str, substr) ? "YES" : "NO");
 
     printf("-------------------- %s ended --------------------\n", __FUNCTION__);
 }
