@@ -325,12 +325,14 @@ void TestStrStr()
     printf("-------------------- %s started --------------------\n", __FUNCTION__);
 
     const char* str = "1300cc";
-    const char* substr = "3c";
-    printf("StrStr(%s, %s) = %s\n", str, substr, StrStr(str, substr) ? "YES" : "NO");
+    const char* substr = "1";
+    char* start = StrStr(str, substr);
+    printf("StrStr(%s, %s) = %s\n", str, substr, start ? start : "nullptr");
 
     str = "1300cc";
     substr = "k";
-    printf("StrStr(%s, %s) = %s\n", str, substr, StrStr(str, substr) ? "YES" : "NO");
+    start = StrStr(str, substr);
+    printf("StrStr(%s, %s) = %s\n", str, substr, start ? start : "nullptr");
 
     printf("-------------------- %s ended --------------------\n", __FUNCTION__);
 }

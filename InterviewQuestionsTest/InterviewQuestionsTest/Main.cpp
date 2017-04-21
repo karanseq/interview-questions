@@ -60,8 +60,8 @@ int main()
     // TestStringNCompare();
     // printf("\n");
 
-    TestStrStr();
-    printf("\n");
+    // TestStrStr();
+    // printf("\n");
 
     // TestReverseString();
     // printf("\n");
@@ -75,8 +75,8 @@ int main()
     // TestSplitSentenceIntoWords();
     // printf("\n");
 
-    // TestMoveZerosToEnd();
-    // printf("\n");
+    TestMoveZerosToEnd();
+    printf("\n");
 
     //TestGetMaxDepthOfBinaryTree();
     //printf("\n");
