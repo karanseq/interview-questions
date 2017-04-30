@@ -499,3 +499,43 @@ void TestSplitSentenceIntoWords()
     printf("-------------------- %s ended --------------------\n", __FUNCTION__);
 }
 
+/*
+Write a function that determines if a string is a palindrome.
+*/
+bool IsPalindrome(const char* i_str)
+{
+    assert(i_str);
+
+    uint32_t back = 0;
+    while (*(i_str + back) != '\0')
+    {
+        ++back;
+    }
+
+    --back;
+    uint32_t front = 0;
+    while (front < back)
+    {
+        if (*(i_str + front) != *(i_str + back))
+        {
+            return false;
+        }
+        ++front;
+        --back;
+    }
+
+    return true;
+}
+
+void TestIsPalindrome()
+{
+    printf("-------------------- %s started --------------------\n", __FUNCTION__);
+
+    assert(IsPalindrome("kayak"));
+    assert(IsPalindrome("aabbaa"));
+    assert(!IsPalindrome("cplusplus"));
+    assert(!IsPalindrome(""));
+
+    printf("-------------------- %s ended --------------------\n", __FUNCTION__);
+}
+

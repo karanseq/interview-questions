@@ -48,6 +48,16 @@ void Delete(Node* i_root)
 	delete i_root;
 }
 
+void GetHeight(size_t& o_height, Node* i_root, size_t i_height = 0)
+{
+    if (i_root)
+    {
+        GetHeight(o_height, i_root->left, i_height + 1);
+        GetHeight(o_height, i_root->right, i_height + 1);
+        o_height = i_height > o_height ? i_height : o_height;
+    }
+}
+
 void VisitInOrder(Node* i_root)
 {
 	if (i_root->left)
@@ -93,54 +103,70 @@ void VisitPostOrder(Node* i_root)
 	printf("%d ", i_root->val);
 }
 
-/*
-Find the maximum depth of a binary tree.
-*/
-void GetMaxDepthOfBinaryTree(Node* i_node, const uint16_t i_depth, uint16_t& o_max_depth)
+void VisitLevel(Node* i_root, size_t i_level)
 {
-    if (!i_node)
+    if (i_root)
     {
-        o_max_depth = i_depth > o_max_depth ? i_depth : o_max_depth;
-        return;
+        if (i_level == 0)
+        {
+            printf("%d ", i_root->val);
+        }
+        else
+        {
+            VisitLevel(i_root->left, i_level - 1);
+            VisitLevel(i_root->right, i_level - 1);
+        }
     }
-
-    GetMaxDepthOfBinaryTree(i_node->left, i_depth + 1, o_max_depth);
-    GetMaxDepthOfBinaryTree(i_node->right, i_depth + 1, o_max_depth);
 }
 
-void TestGetMaxDepthOfBinaryTree()
+void VisitLevelOrder(Node* i_root)
+{
+    size_t height = 0;
+    GetHeight(height, i_root, 0);
+
+    for (size_t i = 0; i <= height; ++i)
+    {
+        VisitLevel(i_root, i);
+    }
+}
+
+void TestBinaryTree()
 {
     printf("-------------------- %s started --------------------\n", __FUNCTION__);
 
-    const uint16_t num_values = 9;
+    const size_t num_values = 9;
     int values[num_values] = { 8, 3, 10, 1, 6, 14, 4, 7, 13 };
 
     Node* root = Insert(nullptr, values[0]);
-	
-	for (uint16_t i = 1; i < num_values; ++i)
-	{
-		Insert(root, values[i]);
-	}
+
+    for (size_t i = 1; i < num_values; ++i)
+    {
+        Insert(root, values[i]);
+    }
+
+    size_t max_depth = 0;
+    GetHeight(max_depth, root, max_depth);
+    printf("Maximum depth of tree shown above:%zu\n", max_depth);
 
     printf("In-order:");
     VisitInOrder(root);
     printf("\n");
-    
+
     printf("Pre-order:");
     VisitPreOrder(root);
     printf("\n");
-    
+
     printf("Post-order:");
     VisitPostOrder(root);
     printf("\n");
 
-    uint16_t max_depth = 0;
-    GetMaxDepthOfBinaryTree(root, max_depth, max_depth);
-
-    printf("Maximum depth of tree shown above:%d\n", max_depth);
+    printf("Level-order:");
+    VisitLevelOrder(root);
+    printf("\n");
 
     Delete(root);
     root = nullptr;
 
     printf("-------------------- %s ended --------------------\n", __FUNCTION__);
 }
+
