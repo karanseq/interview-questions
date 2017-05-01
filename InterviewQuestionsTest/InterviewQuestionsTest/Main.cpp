@@ -75,8 +75,8 @@ int main()
     // TestSplitSentenceIntoWords();
     // printf("\n");
 
-    TestMoveZerosToEnd();
-    printf("\n");
+    // TestMoveZerosToEnd();
+    // printf("\n");
 
     //TestGetMaxDepthOfBinaryTree();
     //printf("\n");
@@ -87,8 +87,8 @@ int main()
     //TestItoA();
     //printf("\n");
 
-    // TestAtoF();
-    // printf("\n");
+    TestAtoF();
+    printf("\n");
 
 //  Windows only code
 #if defined(_WIN64) || defined(_WIN32)

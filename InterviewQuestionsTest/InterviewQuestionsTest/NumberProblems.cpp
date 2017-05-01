@@ -304,7 +304,7 @@ void TestAtoF()
     const char* num1 = "1234.56789";
     printf("String:%s  Float:%f\n", num1, float(AtoF(num1)));
 
-    const char* num2 = "asd12.4asd56";
+    const char* num2 = "asd12..4asd56";
     printf("String:%s  Float:%f\n", num2, float(AtoF(num2)));
 
     const char* num3 = "-asd123";

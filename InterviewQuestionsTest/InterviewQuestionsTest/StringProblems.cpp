@@ -65,13 +65,8 @@ void ReverseWords(char* sentence)
         return;
     }
 
-    if (!sentence)
-    {
-        return;
-    }
-
     uint16_t i = 0, start = 0;
-    while ((sentence + i) && *(sentence + i) != '\0')
+    while (*(sentence + i) != '\0')
     {
         if (*(sentence + i) == ' ')
         {
