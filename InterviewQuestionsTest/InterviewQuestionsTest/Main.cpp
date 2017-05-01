@@ -11,9 +11,10 @@
 // Linked list problems
 void TestReverseLinkedList();
 void TestIsCircularLinkedList();
+void TestMergeLists();
 
 // Binary search tree problems
-void TestGetMaxDepthOfBinaryTree();
+void TestBinaryTree();
 
 // String problems
 void TestReverseWords();
@@ -25,6 +26,7 @@ void TestReverseString();
 void TestRemoveCharFromString();
 void TestRemoveAdjacentDuplicatesFromString();
 void TestSplitSentenceIntoWords();
+void TestIsPalindrome();
 
 // Number problems
 void TestMoveZerosToEnd();
@@ -47,6 +49,9 @@ int main()
 
     // TestIsCircularLinkedList();
     // printf("\n");
+
+    //TestMergeLists();
+    //printf("\n");
 
     // TestReverseWords();
     // printf("\n");
@@ -78,8 +83,11 @@ int main()
     // TestMoveZerosToEnd();
     // printf("\n");
 
-    //TestGetMaxDepthOfBinaryTree();
+    //TestIsPalindrome();
     //printf("\n");
+
+    TestBinaryTree();
+    printf("\n");
 
     //TestAtoI();
     //printf("\n");

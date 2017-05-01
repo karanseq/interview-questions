@@ -320,9 +320,7 @@ void TestAtoF()
     printf("String:%s  Float:%f\n", num6, float(AtoF(num6)));
 
     const char* num7 = " -2309.12E-15";
-    double num7_double = AtoF(num7);
-    float num7_float = float(num7_double);
-    printf("String:%s  Double:%e  Float:%e\n", num7, num7_double, num7_float);
+    printf("String:%s  Float:%e\n", num7, float(AtoF(num7)));
 
     printf("-------------------- %s ended --------------------\n", __FUNCTION__);
 }
