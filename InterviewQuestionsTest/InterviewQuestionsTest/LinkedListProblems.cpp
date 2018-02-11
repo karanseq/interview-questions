@@ -200,156 +200,45 @@ The data in both lists will be sorted in ascending order.
 Change the next pointers to obtain a single, merged linked list which also has data in ascending order. 
 Either head pointer given may be null meaning that the corresponding list is empty.
 */
-Node* MergeLists(Node *headA, Node* headB)
+Node* MergeLists(Node* headA, Node* headB)
 {
-    Node *prevA = nullptr, *currA = headA, *prevB = nullptr, *currB = headB, *headM = nullptr;
-
-    if (headA && headB)
+    if (!headA || !headB)
     {
-        if (headA->val < headB->val)
+        return headA ? headA : headB;
+    }
+
+    Node* head = headA->val < headB->val ? headA : headB;
+    Node* curr = head;
+
+    Node* currA = headA->val < headB->val ? headA->next : headA;
+    Node* currB = headA->val < headB->val ? headB : headB->next;
+
+    while (curr)
+    {
+        if (!currA || !currB)
         {
-            headM = headA;
-            prevA = headA;
-            currA = headA->next;
+            curr->next = currA ? currA : currB;
+            return head;
+        }
+
+        Node* next;
+
+        if (currA->val < currB->val)
+        {
+            next = currA;
+            currA = currA->next;
         }
         else
         {
-            headM = headB;
-            prevB = headB;
-            currB = headB->next;
+            next = currB;
+            currB = currB->next;
         }
-    }
-    else if (headA)
-    {
-        headM = headA;
-        prevA = headA;
-        currA = headA->next;
-    }
-    else if (headB)
-    {
-        headM = headB;
-        prevB = headB;
-        currB = headB->next;
-    }
-    else
-    {
-        return nullptr;
+
+        curr->next = next;
+        curr = next;
     }
 
-    while (1)
-    {
-        if (currA && currB)
-        {
-            if (currA->val < currB->val)
-            {
-                if (prevB)
-                {
-                    if (!prevA || prevB->val > prevA->val)
-                    {
-                        prevB->next = currA;
-                    }
-                }
-
-                if (currA->next && currA->next->val > currB->val)
-                {
-                    Node* currA_next = currA->next;
-                    currA->next = currB;
-
-                    prevA = currA;
-                    currA = currA_next;
-
-                    prevB = currB;
-                    currB = currB->next;
-                }
-                else
-                {
-                    prevA = currA;
-                    currA = currA->next;
-                }
-            }
-            else
-            {
-                if (prevA)
-                {
-                    if (!prevB || prevA->val > prevB->val)
-                    {
-                        prevA->next = currB;
-                    }
-                }
-
-                if (currB->next && currB->next->val > currA->val)
-                {
-                    Node* currB_next = currB->next;
-                    currB->next = currA;
-
-                    prevB = currB;
-                    currB = currB_next;
-                
-                    prevA = currA;
-                    currA = currA->next;
-                }
-                else
-                {
-                    prevB = currB;
-                    currB = currB->next;
-                }
-            }
-        }
-        else if (currA && prevB)
-        {
-            if (currA->val < prevB->val)
-            {
-                if (prevA)
-                {
-                    prevA->next = currA;
-                }
-                Node* currA_next = currA->next;
-                currA->next = prevB;
-                
-                prevA = currA;
-                currA = currA_next;
-
-                prevB = currB;
-            }
-            else
-            {
-                prevB->next = currA;
-                
-                prevA = currA;
-                currA = currA->next;
-            }
-        }
-        else if (currB && prevA)
-        {
-            if (currB->val < prevA->val)
-            {
-                if (prevB)
-                {
-                    prevB->next = currB;
-                }
-                Node* currB_next = currB->next;
-                currB->next = prevA;
-
-                prevB = currB;
-                currB = currB_next;
-
-                prevA = currA;
-            }
-            else
-            {
-                prevA->next = currB;
-
-                prevB = currB;
-                currB = currB->next;
-            }
-        }
-        else
-        {
-            break;
-        }
-    }
-
-    return headM;
+    return head;
 }
 
 void TestMergeLists()

@@ -50,8 +50,8 @@ int main()
     // TestIsCircularLinkedList();
     // printf("\n");
 
-    //TestMergeLists();
-    //printf("\n");
+    TestMergeLists();
+    printf("\n");
 
     // TestReverseWords();
     // printf("\n");
@@ -86,8 +86,8 @@ int main()
     //TestIsPalindrome();
     //printf("\n");
 
-    TestBinaryTree();
-    printf("\n");
+    // TestBinaryTree();
+    // printf("\n");
 
     //TestAtoI();
     //printf("\n");
@@ -95,8 +95,8 @@ int main()
     //TestItoA();
     //printf("\n");
 
-    TestAtoF();
-    printf("\n");
+    // TestAtoF();
+    // printf("\n");
 
 //  Windows only code
 #if defined(_WIN64) || defined(_WIN32)
